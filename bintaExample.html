@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Hello, world!</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .main-section.anchor {
+            width: 0;
+        }
+
+        .main-section.lead {
+            margin-left: 0px;
+        }
+
+        .main-section {
+            display: inline-block;
+            width: 300px;
+            height: 100vh;
+            margin-left: -4px;
+        }
+        .main-section:nth-child(even) {
+            background-color:lightblue;
+        }
+        .main-section:nth-child(odd) {
+            background-color:pink;
+        }
+        .horizontal-scroll {
+            min-width: 100vw;
+            max-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .scale-off {
+            transform: rotate(0deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="horizontal-scroll">
+        <section id="anchor_scaleOffExample" class="main-section binta-section anchor">&nbsp;</section>
+        <section data-anchor="#anchor_scaleOffExample" class="main-section binta-section lead scale-off">I have content
+        </section>
+        <section class="main-section binta-section">More content</section>
+        <section class="main-section binta-section">I have content</section>
+        <section class="main-section binta-section">More content</section>
+        <section class="main-section binta-section">I have content</section>
+        <section class="main-section binta-section">More content</section>
+        <section class="main-section binta-section">I have content</section>
+        <section class="main-section binta-section">More content</section>
+        <section class="main-section binta-section">I have content</section>
+        <section class="main-section binta-section">More content</section>
+    </div>
+
+
+</body>
+<script src="binta-scroll.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.horizontal-scroll').bintaScroll({
+            sectionEl:".binta-section"
+            , scaleOff:".binta-section.scale-off"
+            , horizontal: true
+        });
+    });
+</script>
+
+</html>
