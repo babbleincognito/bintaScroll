@@ -24,7 +24,7 @@
 
         .main-section {
             display: inline-block;
-            width: 300px;
+            width: 100vw;
             height: 100vh;
             margin-left: -4px;
             scroll-snap-align: start;
@@ -48,7 +48,9 @@
         }
 
         .scale-off {
-            transform: rotate(0deg);
+            transition: all 300ms;
+            background-color:lightgreen;
+            height: 100vh;
         }
     </style>
 </head>
@@ -56,7 +58,8 @@
 <body>
     <div class="horizontal-scroll">
         <section id="anchor_scaleOffExample" class="main-section binta-section anchor">&nbsp;</section>
-        <section data-anchor="#anchor_scaleOffExample" class="main-section binta-section lead scale-off">I have content
+        <section class="main-section binta-section lead scale-off" data-anchor="#anchor_scaleOffExample" >
+            <div  class="">Scale this content</div>
         </section>
         <section class="main-section binta-section">More content</section>
         <section class="main-section binta-section">I have content</section>
@@ -76,7 +79,7 @@
     $(document).ready(function () {
         $('.horizontal-scroll').bintaScroll({
             sectionEl: ".binta-section"
-            , scaleOff: ".binta-section.scale-off"
+            , scaleOffEl: ".scale-off"
             , horizontal: true
         });
     });

@@ -6,14 +6,27 @@
 
         $.fn.bintaScroll.registry[this] = $.fn.bintaScroll;
         $.fn.bintaScroll.settings = $.extend($.fn.bintaScroll.defaults, opt);
-        $.fn.bintaScroll.settings.container = this.target;
+        $.fn.bintaScroll.settings.container = this;
         $($.fn.bintaScroll.settings.sectionEl).each((i, e) => { $(e).attr("data-start-width", $(e).width()); });
+        $($.fn.bintaScroll.settings.scaleOffEl).each((i, e) => { $(e).attr("data-start-width", $(e).width()); });
         
-        $(this.target).scroll(function(){
-            $.fn.bintaScroll.scaleOff();
-        });
-
         if ($.fn.bintaScroll.settings.horizontal) {
+            $($.fn.bintaScroll.settings.container).on('scroll', function() {
+                $($.fn.bintaScroll.settings.scaleOffEl).each((i, e) => {
+                    var $e = $(e);
+                    if (!$e.data('anchor'))
+                        return;
+                    var anchor = $($e.data('anchor')).position().left;
+                    var startWidth = $e.data("start-width");
+                    if (anchor < 0) {
+                        var scale = Math.max(0, 1 - (Math.abs(anchor) / startWidth));
+                        $e.css("transform", "scaleX(" + scale + ") translateX(" + scale * 100 + "%)");                           
+                    }
+                    else {
+                        $e.css("transform", "scaleX(1) translateX(0)");
+                    }
+                });
+            });
             this.each((i, e) => {
                 if (e.addEventListener) {
                     // IE9, Chrome, Safari, Opera
@@ -52,24 +65,4 @@
 
         e.preventDefault();
     };
-    $.fn.bintaScroll.scaleOff = function () {
-        $($.fn.bintaScroll.settings.scaleOffEl).each((i, e) => {
-            var $e = $(e);
-            if (!$e.data('anchor'))
-                return;
-            var anchor = $($e.data('anchor')).position().left;
-            var startWidth = $e.data("start-width");
-            if (anchor < 0) {
-                var scale = Math.max(0, 1 - (Math.abs(anchor) / startWidth));
-                $($e.data('anchor')).width(Math.abs(anchor) / 2);
-                $e.css("transform", "scaleX(" + scale + ")")
-                    .css("margin-right", -1 * Math.min(Math.abs(anchor), startWidth) / 2 + "px");
-            }
-            else {
-                $e.css("transform", "scaleX(1)")
-                    .css("margin-right", 0);
-                $($e.data('anchor')).width(0);
-            }
-        });
-    }
 }(jQuery));
