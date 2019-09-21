@@ -9,6 +9,10 @@
         $.fn.bintaScroll.settings.container = this.target;
         $($.fn.bintaScroll.settings.sectionEl).each((i, e) => { $(e).attr("data-start-width", $(e).width()); });
         
+        $(this.target).scroll(function(){
+            $.fn.bintaScroll.scaleOff();
+        });
+
         if ($.fn.bintaScroll.settings.horizontal) {
             this.each((i, e) => {
                 if (e.addEventListener) {
@@ -41,8 +45,10 @@
     $.fn.bintaScroll.scrollHorizontally = function (e) {
         e = window.event || e;
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        e.currentTarget.scrollLeft -= (delta * 40);
-        $.fn.bintaScroll.scaleOff();
+        if(delta < 0)
+            $(e.currentTarget)[0].scrollBy({top:0,left:50,behavior:'smooth'});
+        else
+            $(e.currentTarget)[0].scrollBy({top:0,left:-50,behavior:'smooth'});
 
         e.preventDefault();
     };

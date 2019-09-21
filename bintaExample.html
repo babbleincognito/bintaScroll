@@ -6,6 +6,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0px;
         }
@@ -23,19 +27,24 @@
             width: 300px;
             height: 100vh;
             margin-left: -4px;
+            scroll-snap-align: start;
         }
+
         .main-section:nth-child(even) {
-            background-color:lightblue;
+            background-color: lightblue;
         }
+
         .main-section:nth-child(odd) {
-            background-color:pink;
+            background-color: pink;
         }
+
         .horizontal-scroll {
             min-width: 100vw;
             max-height: 100vh;
             height: 100vh;
             overflow: hidden;
             white-space: nowrap;
+            scroll-snap-type: x mandatory;
         }
 
         .scale-off {
@@ -66,8 +75,8 @@
 <script>
     $(document).ready(function () {
         $('.horizontal-scroll').bintaScroll({
-            sectionEl:".binta-section"
-            , scaleOff:".binta-section.scale-off"
+            sectionEl: ".binta-section"
+            , scaleOff: ".binta-section.scale-off"
             , horizontal: true
         });
     });
