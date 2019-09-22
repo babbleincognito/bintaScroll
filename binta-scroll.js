@@ -16,14 +16,13 @@
                     var $e = $(e);
                     if (!$e.data('anchor'))
                         return;
-                    var anchor = $($e.data('anchor')).position().left;
-                    var startWidth = $e.data("start-width");
+                    var anchor = $e.position().left;
+
                     if (anchor < 0) {
-                        var scale = Math.max(0, 1 - (Math.abs(anchor) / startWidth));
-                        $e.css("transform", "scaleX(" + scale + ") translateX(" + scale * 100 + "%)");                           
+                        $e.addClass('trigger');                          
                     }
                     else {
-                        $e.css("transform", "scaleX(1) translateX(0)");
+                        $e.removeClass('trigger');  
                     }
                 });
             });
